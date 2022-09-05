@@ -19,6 +19,17 @@ void init_list(List *list){
     list->head = NULL;
     list->tail = NULL;
 }
+Node *__find_node(List *list, int index){
+    Node *buff = NULL;
+    if(index < (list->size / 2)){
+        for(buff = list->head; buff->index != index; buff = buff->next);
+        return buff;
+    }
+    else{
+        for(buff = list->tail; buff->index != index; buff = buff->prev);
+        return buff;
+    }
+}
 
 void add_item(List *list, int value){
     Node *item = (Node*)malloc(sizeof(Node));
@@ -43,33 +54,39 @@ void print_list(List *list){
         return;
     }
     Node *buff = list->head;
-    printf("%d\n", buff->data);
-    while(buff != list->tail){
-        buff = buff->next;
-        printf("%d\n", buff->data);
+    printf("List:%p\tHead:%p\tTail:%p\n", list, list->head, list->tail);
+    printf("#\t\tp\t\tprev\t\tnext\n");
+    for(buff = list->head; buff != NULL; buff = buff->next){
+        printf("%d.\t%d\t%p\t%p\t%p\n", buff->index, buff->data, buff, buff->prev, buff->next);
     }
 }
 
 int get_data(List *list, int index){
     Node *buff;
-    if(index < (list->size / 2)){
-        for(buff = list->head; buff->index != index; buff = buff->next);
-        if(buff != NULL){
-            return buff->data;
-        }
-        else{
-            return 0;
-        }
+    buff = __find_node(list, index);
+    if(buff != NULL){
+        return buff->data;
     }
     else{
-        for(buff = list->tail; buff->index != index; buff = buff->prev);
-        if(buff != NULL){
-            return buff->data;
-        }
-        else{
-            return 0;
-        }
+        return 0;
     }
+}
+
+void remove_item(List *list, int index){
+    Node *buff;
+    buff = __find_node(list, index);
+    buff->prev->next = buff->next;
+    buff->next->prev = buff->prev;
+    list->size--;
+    for(buff = buff->next; buff != NULL; buff = buff->next)
+        buff->index--;
+}
+
+void delete_item(List *list, int index){
+    Node *buff;
+    buff = __find_node(list, index);
+    remove_item(list, index);
+    free(buff);
 }
 
 int main(){
@@ -78,7 +95,9 @@ int main(){
     add_item(list, 10);
     add_item(list, 20);
     add_item(list, 30);
+    delete_item(list, 1);
     print_list(list);
-    printf("\t%d", get_data(list, 1));
+    int x = get_data(list, 1);
+    printf("%d", x);
     return 0;
 }
