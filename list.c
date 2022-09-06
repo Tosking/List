@@ -90,7 +90,7 @@ void delete_item(List *list, int index){
 }
 
 int main(){
-    List *list;
+    List *list = (List*)malloc(sizeof(List));
     init_list(list);
     add_item(list, 10);
     add_item(list, 20);
