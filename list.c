@@ -25,7 +25,8 @@ Node *__find_node(List *list, int index){
         return buff;
     }
     else{
-        for(buff = list->tail; i != index; buff = buff->prev) i++;
+        i = list->size;
+        for(buff = list->tail; i != index; buff = buff->prev) i--;
         return buff;
     }
 }
@@ -54,15 +55,21 @@ void print_list(List *list){
     printf("List:%p\tHead:%p\tTail:%p\n", list, list->head, list->tail);
     printf("#\tp\t\tprev\t\tnext\n");
     for(buff = list->head; buff != NULL; buff = buff->next){
+        i++;
         printf("%d.\t%p\t%p\t%p\n", i, buff, buff->prev, buff->next);
     }
 }
 
 void remove_item(List *list, int index){
     Node *buff;
+    printf("%d", index);
     buff = __find_node(list, index);
-    buff->prev->next = buff->next;
-    buff->next->prev = buff->prev;
+    if(buff->prev != NULL){
+        buff->prev->next = buff->next;
+    }
+    if(buff->next != NULL){
+        buff->next->prev = buff->prev;
+    }
     list->size--;
 }
 
@@ -73,13 +80,66 @@ void delete_item(List *list, int index){
     free(buff);
 }
 
+void insert(List *list, int index, Node *buff){
+    Node *temp = __find_node(list, index);
+    temp->prev->next = buff;
+    buff->prev = temp->prev;
+    buff->next = temp;
+}
+
+void clear(List *list){
+    int i = 0;
+    for(Node *temp = list->head; temp != NULL; temp = temp->next)
+        delete_item(list, ++i);
+    
+}
+
 int main(){
     List *list = (List*)malloc(sizeof(List));
     init_list(list);
-    add_item(list);
-    add_item(list);
-    add_item(list);
-    delete_item(list, 1);
-    print_list(list);
+    while(1){
+        int index;
+        int var = 0;
+        printf(" 1.add item\n \
+2.delete item\n \
+3.print list\n \
+4.find node\n \
+5.insert node\n \
+6.clear \n \
+                ");
+        scanf("%d", &var);
+        switch (var)
+        {
+        case 1:
+            add_item(list);
+            break;
+        case 2:
+            printf("Enter index, that you want to delete:");
+            scanf("%d", &index);
+            delete_item(list, index);
+            break;
+        case 3:
+            print_list(list);
+            break;
+        case 4:
+            printf("Enter index, that you want to print:");
+            scanf("%d", &index);
+            Node *buff = __find_node(list, index);
+            printf("p\t\tprev\t\tnext\n");
+            printf("%p\t%p\t%p\n", buff, buff->prev, buff->next);
+            break;
+        case 5:
+            printf("Enter index, in what you what to insert item:");
+            scanf("%d", &index);
+            buff = (Node*) malloc(sizeof(Node));
+            insert(list, index, buff);
+            break;
+        case 6:
+            clear(list);
+            break;
+        default:
+            break;
+        }
+    }
     return 0;
 }
