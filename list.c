@@ -55,8 +55,8 @@ void print_list(List *list){
     printf("List:%p\tHead:%p\tTail:%p\n", list, list->head, list->tail);
     printf("#\tp\t\tprev\t\tnext\n");
     for(buff = list->head; buff != NULL; buff = buff->next){
-        i++;
         printf("%d.\t%p\t%p\t%p\n", i, buff, buff->prev, buff->next);
+        i++;
     }
 }
 
@@ -89,9 +89,14 @@ void insert(List *list, int index, Node *buff){
 
 void clear(List *list){
     int i = 0;
-    for(Node *temp = list->head; temp != NULL; temp = temp->next)
-        delete_item(list, ++i);
-    
+    for(Node *temp = list->head; i < list->size; temp = temp->next){
+        delete_item(list, i);
+        i++;
+        if(temp == NULL){
+            break;
+        }
+    }
+    list->size = 0;
 }
 
 int main(){
