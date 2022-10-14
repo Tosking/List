@@ -19,6 +19,10 @@ void init_list(List *list){
 }
 Node *__find_node(List *list, int index){
     Node *buff = NULL;
+    if(index >= list->size || index < 0){
+        printf("Invalid index");
+        return NULL;
+    }
     int i = 0;
     if(index < (list->size / 2)){
         for(buff = list->head; i != index; buff = buff->next) i++;
@@ -31,8 +35,7 @@ Node *__find_node(List *list, int index){
     }
 }
 
-void add_item(List *list){
-    Node *item = (Node*)malloc(sizeof(Node));
+void add_item(List *list, Node *item){
     if(list->size != 0){
         item->prev = list->tail;
         list->tail->next = item;
@@ -82,8 +85,14 @@ void delete_item(List *list, int index){
 
 void insert(List *list, int index, Node *buff){
     Node *temp = __find_node(list, index);
-    temp->prev->next = buff;
+    if(temp->prev != NULL){
+        temp->prev->next = buff;
+    }
+    else{
+        list->head = buff;
+    }
     buff->prev = temp->prev;
+    temp->prev = buff;
     buff->next = temp;
 }
 
@@ -102,6 +111,7 @@ void clear(List *list){
 int main(){
     List *list = (List*)malloc(sizeof(List));
     init_list(list);
+    Node *temp;
     while(1){
         int index;
         int var = 0;
@@ -116,7 +126,8 @@ int main(){
         switch (var)
         {
         case 1:
-            add_item(list);
+            temp = (Node*)malloc(sizeof(Node));
+            add_item(list, temp);
             break;
         case 2:
             printf("Enter index, that you want to delete:");
@@ -130,6 +141,9 @@ int main(){
             printf("Enter index, that you want to print:");
             scanf("%d", &index);
             Node *buff = __find_node(list, index);
+            if(buff == NULL){
+                break;
+            }
             printf("p\t\tprev\t\tnext\n");
             printf("%p\t%p\t%p\n", buff, buff->prev, buff->next);
             break;
