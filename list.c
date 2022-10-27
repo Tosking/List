@@ -104,8 +104,24 @@ void clear(List *list){
         if(temp == NULL){
             break;
         }
+        if(temp->next == NULL){
+            break;
+        }
     }
     list->size = 0;
+}
+
+void get_index(List *list, List *pointer){
+    int i = 0;
+    for(Node *temp = list->head; i < list->size; temp = temp->next){
+        if(pointer == temp){
+            printf("Index:%d\n", i);
+        }
+        if(temp->next == NULL){
+            break;
+        }
+        i++;
+    }
 }
 
 int main(){
@@ -121,6 +137,7 @@ int main(){
 4.find node\n \
 5.insert node\n \
 6.clear \n \
+7.get_index \n \
                 ");
         scanf("%d", &var);
         switch (var)
@@ -156,6 +173,11 @@ int main(){
         case 6:
             clear(list);
             break;
+        case 7:
+            printf("Enter pointer:");
+            List *pointer;
+            scanf("%p", &pointer);
+            get_index(list, pointer);
         default:
             break;
         }
