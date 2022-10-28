@@ -20,7 +20,6 @@ void init_list(List *list){
 Node *__find_node(List *list, int index){
     Node *buff = NULL;
     if(index >= list->size || index < 0){
-        printf("Invalid index");
         return NULL;
     }
     int i = 0;
@@ -29,7 +28,7 @@ Node *__find_node(List *list, int index){
         return buff;
     }
     else{
-        i = list->size;
+        i = list->size - 1;
         for(buff = list->tail; i != index; buff = buff->prev) i--;
         return buff;
     }
@@ -63,28 +62,38 @@ void print_list(List *list){
     }
 }
 
-void remove_item(List *list, int index){
+Node *remove_item(List *list, int index){
     Node *buff;
-    printf("%d", index);
     buff = __find_node(list, index);
+    if(buff == NULL){
+        return NULL;
+    }
     if(buff->prev != NULL){
         buff->prev->next = buff->next;
+    }
+    else {
+        list->head = buff->next;
     }
     if(buff->next != NULL){
         buff->next->prev = buff->prev;
     }
+    else {
+        list->tail = buff->prev;
+    }
     list->size--;
+    return buff;
 }
 
 void delete_item(List *list, int index){
     Node *buff;
-    buff = __find_node(list, index);
-    remove_item(list, index);
-    free(buff);
+    free(remove_item(list, index));
 }
 
 void insert(List *list, int index, Node *buff){
     Node *temp = __find_node(list, index);
+    if(temp == NULL){
+        return;
+    }
     if(temp->prev != NULL){
         temp->prev->next = buff;
     }
@@ -94,6 +103,7 @@ void insert(List *list, int index, Node *buff){
     buff->prev = temp->prev;
     temp->prev = buff;
     buff->next = temp;
+    list->size++;
 }
 
 void clear(List *list){
@@ -111,11 +121,11 @@ void clear(List *list){
     list->size = 0;
 }
 
-void get_index(List *list, List *pointer){
+int get_index(List *list, List *pointer){
     int i = 0;
     for(Node *temp = list->head; i < list->size; temp = temp->next){
         if(pointer == temp){
-            printf("Index:%d\n", i);
+            return i;
         }
         if(temp->next == NULL){
             break;
@@ -159,6 +169,7 @@ int main(){
             scanf("%d", &index);
             Node *buff = __find_node(list, index);
             if(buff == NULL){
+                printf("%p", buff);
                 break;
             }
             printf("p\t\tprev\t\tnext\n");
@@ -177,7 +188,7 @@ int main(){
             printf("Enter pointer:");
             List *pointer;
             scanf("%p", &pointer);
-            get_index(list, pointer);
+            printf("Index:%d\n", get_index(list, pointer));
         default:
             break;
         }
