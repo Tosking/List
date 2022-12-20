@@ -1,6 +1,6 @@
-#ifndef LIST_H_
-#define LIST_H_
-
+#pragma once
+#include <stdio.h>
+#include <stdlib.h>
 typedef struct Node{
     struct Node *next;
     struct Node *prev;
@@ -22,4 +22,3 @@ void insert(List *list, int index, Node *buff);
 void clear(List *list);
 int get_index(List *list, List *pointer);
 
-#endif

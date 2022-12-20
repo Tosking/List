@@ -38,7 +38,7 @@ void add_item(List *list, Node *item){
     item->next = NULL;
 }
 
-void print_list(List *list){
+void print(List *list){
     if(list->size == 0){
         return;
     }

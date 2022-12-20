@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
+#include "subj.h"
 
 int main(){
     List *list = (List*)malloc(sizeof(List));
     init_list(list);
-    Node *temp;
+    Base *temp;
     while(1){
         int index;
         int var = 0;
@@ -21,8 +22,10 @@ int main(){
         switch (var)
         {
         case 1:
-            temp = (Node*)malloc(sizeof(Node));
-            add_item(list, temp);
+            printf("Enter object type (0 - star, 1 - planet):");
+            scanf("%d", &var);
+            create(var, list);
+            add((Base*) list->tail, ALL, var);
             break;
         case 2:
             printf("Enter index, that you want to delete:");
@@ -61,5 +64,4 @@ int main(){
             break;
         }
     }
-    return 0;
 }
