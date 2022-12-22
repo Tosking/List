@@ -1,32 +1,42 @@
 #include "subj.h"
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct Star{
-    struct Base;
+    struct Base base;
     float t;
     float size;
     float earth_d;
-}Star;
+} Star;
 
 typedef struct Planet {
-    struct Base;
+    struct Base base;
     char* system;
     float orb_d;
-}Planet;
+} Planet;
+
+void __clear_input(){
+    while(getchar() != EOF){
+        printf("1\n");
+    }
+}
 
 void add(Base *data, AddChoose choose, TypeObject type){
+    fflush(stdin);
+    char *temp;
     switch(choose){
         case Name:
-            char *temp;
-            fflush(stdin);
-            scanf("%s", temp);
-            strcpy(data->name,temp);
+            printf("Name:");
+            scanf("%s", &data->name);
             break;
         case Mass:
-            scanf("%lf", data->mass);
+            printf("Mass:");
+            scanf("%lf", &data->mass);
             break;
         case D:
-            scanf("%lf", data->d);
+            printf("Diameter:");
+            scanf("%lf", &data->d);
             break;
         case ALL:
             for(int i = 0; i < Orb_d; i++){
@@ -37,24 +47,27 @@ void add(Base *data, AddChoose choose, TypeObject type){
         case isStar:
             switch (choose){
                 case Size:
-                    scanf("%lf", ((Star*) data)->size);
+                    printf("Size:");
+                    scanf("%lf", &((Star*) data)->size);
                     break;
                 case Earth_d:
-                    scanf("%lf", ((Star*) data)->earth_d);
+                    printf("Distance to earth:");
+                    scanf("%lf", &((Star*) data)->earth_d);
                     break;
                 case T:
-                    scanf("%lf", ((Star*) data)->t);
+                    printf("Temperature:");
+                    scanf("%lf", &((Star*) data)->t);
                     break;
             }
             break;
         case isPlanet:
             switch(choose){
                 case Orb_d:
+                    printf("Orbit diameter:");
                     scanf("%lf", ((Planet*) data)->orb_d);
                     break;
                 case System:
-                    char *temp;
-                    fflush(stdin);
+                    printf("System:");
                     scanf("%s", temp);
                     strcpy(((Planet*) data)->system,temp);
                     break;
@@ -96,6 +109,6 @@ Base *create(TypeObject type, List* list){
             break;
     }
     base->type = type;
-    add_item(list, base);
+    add_item(list, (Node*) base);
     return base;
 }

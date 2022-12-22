@@ -10,8 +10,8 @@ typedef enum TypeObject
 
 typedef struct Base
 {
+    struct Node *base;
     TypeObject type;
-    struct Node;
     char name[50];
     double mass;
     double d;

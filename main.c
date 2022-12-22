@@ -22,7 +22,7 @@ int main(){
         switch (var)
         {
         case 1:
-            printf("Enter object type (0 - star, 1 - planet):");
+            printf("Enter object type (1 - star, 2 - planet):");
             scanf("%d", &var);
             create(var, list);
             add((Base*) list->tail, ALL, var);
