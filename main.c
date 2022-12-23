@@ -25,7 +25,7 @@ int main(){
             printf("Enter object type (1 - star, 2 - planet):");
             scanf("%d", &var);
             create(var, list);
-            add((Base*) list->tail, ALL, var);
+            insert((Base*) list->tail, ALL, var);
             break;
         case 2:
             printf("Enter index, that you want to delete:");
@@ -50,14 +50,14 @@ int main(){
             printf("Enter index, in what you what to insert item:");
             scanf("%d", &index);
             buff = (Node*) malloc(sizeof(Node));
-            insert(list, index, buff);
+            insert_item(list, index, buff);
             break;
         case 6:
             clear(list);
             break;
         case 7:
             printf("Enter pointer:");
-            List *pointer;
+            Node *pointer;
             scanf("%p", &pointer);
             printf("Index:%d\n", get_index(list, pointer));
         default:

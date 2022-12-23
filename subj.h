@@ -30,7 +30,7 @@ typedef enum AddChoose {
 }AddChoose;
 
 
-void add(Base *data, AddChoose choose, TypeObject type);
+void insert(Base *data, AddChoose choose, TypeObject type);
 Base *create(TypeObject type, List* list);
 void add_star(List *list);
 void print_list(List* list);

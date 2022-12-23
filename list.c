@@ -79,7 +79,7 @@ void delete_item(List *list, int index){
     free(remove_item(list, index));
 }
 
-void insert(List *list, int index, Node *buff){
+void insert_item(List *list, int index, Node *buff){
     Node *temp = __find_node(list, index);
     if(temp == NULL){
         return;
@@ -111,7 +111,7 @@ void clear(List *list){
     list->size = 0;
 }
 
-int get_index(List *list, List *pointer){
+int get_index(List *list, Node *pointer){
     int i = 0;
     for(Node *temp = list->head; i < list->size; temp = temp->next){
         if(pointer == temp){

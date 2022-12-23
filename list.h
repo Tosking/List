@@ -18,7 +18,7 @@ void add_item(List *list, Node *item);
 void print_list(List *list);
 Node *remove_item(List *list, int index);
 void delete_item(List *list, int index);
-void insert(List *list, int index, Node *buff);
+void insert_item(List *list, int index, Node *buff);
 void clear(List *list);
-int get_index(List *list, List *pointer);
+int get_index(List *list, Node *pointer);
 

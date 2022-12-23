@@ -4,14 +4,14 @@
 #include <stdlib.h>
 
 typedef struct Star{
-    struct Base base;
+    Base base;
     float t;
     float size;
     float earth_d;
 } Star;
 
 typedef struct Planet {
-    struct Base base;
+    Base base;
     char* system;
     float orb_d;
 } Planet;
@@ -22,25 +22,50 @@ void __clear_input(){
     }
 }
 
-void add(Base *data, AddChoose choose, TypeObject type){
+void insert_name(Base *data){
+    scanf("%s", &data->name);
+}
+void insert_mass(Base *data){
+    scanf("%lf", &data->mass);
+}
+void insert_d(Base *data){
+    scanf("%lf", &data->d);
+}
+void insert_size(Star *data){
+    scanf("%lf", &data->size);
+}
+void insert_earth_d(Star *data){
+    scanf("%lf", &data->earth_d);
+}
+void insert_t(Star *data){
+    scanf("%lf", &data->t);
+}
+void insert_orb_d(Planet *data){
+    scanf("%lf", &data->orb_d);
+}
+void insert_system(Planet *data){
+    scanf("%s", &data->system);
+}
+
+void insert(Base *data, AddChoose choose, TypeObject type){
     fflush(stdin);
     char *temp;
     switch(choose){
         case Name:
             printf("Name:");
-            scanf("%s", &data->name);
+            insert_name(data);
             break;
         case Mass:
             printf("Mass:");
-            scanf("%lf", &data->mass);
+            insert_mass(data);
             break;
         case D:
             printf("Diameter:");
-            scanf("%lf", &data->d);
+            insert_d(data);
             break;
         case ALL:
             for(int i = 0; i < Orb_d; i++){
-                add(data, i, type);
+                insert(data, i, type);
             }
     }
     switch (type){
@@ -48,15 +73,15 @@ void add(Base *data, AddChoose choose, TypeObject type){
             switch (choose){
                 case Size:
                     printf("Size:");
-                    scanf("%lf", &((Star*) data)->size);
+                    insert_size((Star*) data);
                     break;
                 case Earth_d:
                     printf("Distance to earth:");
-                    scanf("%lf", &((Star*) data)->earth_d);
+                    insert_earth_d((Star*) data);
                     break;
                 case T:
                     printf("Temperature:");
-                    scanf("%lf", &((Star*) data)->t);
+                    insert_t((Star*) data);
                     break;
             }
             break;
@@ -64,12 +89,11 @@ void add(Base *data, AddChoose choose, TypeObject type){
             switch(choose){
                 case Orb_d:
                     printf("Orbit diameter:");
-                    scanf("%lf", ((Planet*) data)->orb_d);
+                    insert_orb_d((Planet*) data);
                     break;
                 case System:
                     printf("System:");
-                    scanf("%s", temp);
-                    strcpy(((Planet*) data)->system,temp);
+                    insert_system((Planet*) data);
                     break;
             }
             break;
