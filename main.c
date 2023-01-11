@@ -8,13 +8,15 @@ int main(){
     init_list(list);
     Base *temp;
     while(1){
+        fflush(stdin);
+        char buff[100];
         int index;
         int var = 0;
         printf(" 1.add item\n \
 2.delete item\n \
 3.print list\n \
-4.find node\n \
-5.insert node\n \
+4.search\n \
+5.sort\n \
 6.clear \n \
 7.get_index \n \
                 ");
@@ -36,21 +38,12 @@ int main(){
             print_list(list);
             break;
         case 4:
-            printf("Enter index, that you want to print:");
-            scanf("%d", &index);
-            Node *buff = __find_node(list, index);
-            if(buff == NULL){
-                printf("%p", buff);
-                break;
-            }
-            printf("p\t\tprev\t\tnext\n");
-            printf("%p\t%p\t%p\n", buff, buff->prev, buff->next);
+            printf("Enter name of a object, that you want to print:");
+            scanf("%s", &buff);
+            search(list, buff);
             break;
         case 5:
-            printf("Enter index, in what you what to insert item:");
-            scanf("%d", &index);
-            buff = (Node*) malloc(sizeof(Node));
-            insert_item(list, index, buff);
+            sort(list);
             break;
         case 6:
             clear(list);
