@@ -217,13 +217,83 @@ void sort(List* list){
         for(Node *temp = list->head; temp != NULL; temp = temp->next){
             if(temp->next == NULL)
                 break;
-            if(((Base*) temp)->d > ((Base*) temp->next)->d){
+            int sum1 = 0;
+            int sum2 = 0;
+            for(int i = 0; i < 50; i++){
+                sum1 += ((Base*) temp)->name[0] + ((Base*) temp)->name[1] + ((Base*) temp)->name[3];
+            }
+            for(int i = 0; i < 50; i++){
+                sum2 += ((Base*) temp->next)->name[0] + ((Base*) temp->next)->name[1] + ((Base*) temp->next)->name[3];
+            }
+            if(sum1 > sum2){
                 push_back(list, temp->next);
                 i++;
             }
         }
         if(i == 0){
             break;
+        }
+    }
+}
+
+Planet **sort_by_d_solar(List *list, Star *star){
+    int planets = 0;
+    Planet **arr = malloc(sizeof(Planet) * list->size);
+    Base *temp = (Base*) list->head;
+    Base *last_planet = NULL;
+    for(int i = 0; i < list->size; i++){
+        if(temp->type == isPlanet){
+            if(strcmp(((Planet*) temp)->system, ((Base*) star)->name) == 0){
+                arr[planets] = (Planet*)temp;
+                planets++;
+                last_planet = temp;
+            }
+        }
+        temp = ((Base*)((Node*) temp)->next);
+    }
+    if(planets >= 2){
+        for(int i = 0; i < planets; i++){
+            for(int k = 0; k < (planets - 1); k++){
+                if(arr[k] > arr[k+1]){
+                    Planet *buff = arr[k];
+                    arr[k] = arr[k+1];
+                    arr[k+1] = buff;
+                }
+            }
+        }
+        return arr;
+    }
+    else{
+        arr[0] = (Planet*) last_planet;
+        return arr;
+    }
+}
+
+void print_solar(List* list){
+    for(Base *solar = (Base*) list->head; solar; solar = ((Base*)((Node*) solar)->next)){
+        if(solar->type == isStar){
+            Planet **arr = sort_by_d_solar(list, (Star*) solar);
+            print_item(solar, ALL);
+            for(int i = 0; i < list->size; i++){
+                if(arr[i] != NULL){
+                    print_item((Base*) arr[i], ALL);
+                    printf("\n");
+                }
+                else
+                    break;
+            }
+            printf("\n-------------------------------\n");
+            free(arr);
+        }
+    }
+}
+
+void print_one(List* list, TypeObject type){
+    Base *temp = (Base*) list->head;
+    while(temp != NULL){
+        if(temp->type == type){
+            print_item(temp, ALL);
+            printf("\n");
         }
     }
 }

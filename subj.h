@@ -52,4 +52,6 @@ void print_item(Base *data, AddChoose choose);
 void print_list(List *list);
 void sort(List* list);
 void search(List* list, const char *str);
+void print_solar(List* list);
+void print_one(List* list, TypeObject type);
 

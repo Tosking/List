@@ -19,6 +19,8 @@ int main(){
 5.sort\n \
 6.clear \n \
 7.get_index \n \
+8.sort by solar system\n \
+9.print one type objects\n \
                 ");
         scanf("%d", &var);
         switch (var)
@@ -53,6 +55,12 @@ int main(){
             Node *pointer;
             scanf("%p", &pointer);
             printf("Index:%d\n", get_index(list, pointer));
+        case 8:
+            print_solar(list);
+        case 9:
+            printf("Enter object type (1 - star, 2 - planet):");
+            scanf("%s", &buff);
+            print_one(list, buff);
         default:
             break;
         }
