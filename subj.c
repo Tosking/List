@@ -196,39 +196,34 @@ Base *create(TypeObject type, List* list){
 }
 
 int search_elements(Base* temp, const char *str){
-    if(strstr(temp->name, str)){
+    if(strstr(temp->name, str))
         return 1;
-    }
-    else{
+    else
         return 0;
-    }
 }
 
 void search(List* list, const char *str){
     Node *temp = list->head;
     while(temp != NULL){
-        if(search_elements((Base *)temp, str)){
+        if(search_elements((Base *)temp, str))
             print_item((Base *)temp, ALL);
-        }
         temp = temp->next;
     }
 }
 
 void sort(List* list){
-    int i = 0;
-    for(Node *temp = list->head; temp != NULL; temp = temp->next){
-        int k = 0;
-        for(Node *itemp = temp->next; itemp != NULL; itemp = itemp->next){
-            if(((Base*) temp)->d > ((Base*) itemp)->d){
-                insert_item(list, i, itemp);
-                delete_item(list, k);
-                insert_item(list, k, temp);
-                delete_item(list, i+1);
-                temp = itemp;
+    while(1){
+        int i = 0;
+        for(Node *temp = list->head; temp != NULL; temp = temp->next){
+            if(temp->next == NULL)
                 break;
+            if(((Base*) temp)->d > ((Base*) temp->next)->d){
+                push_back(list, temp->next);
+                i++;
             }
-            k++;
         }
-        i++;
+        if(i == 0){
+            break;
+        }
     }
 }

@@ -123,3 +123,22 @@ int get_index(List *list, Node *pointer){
         i++;
     }
 }
+
+void push_back(List *list, Node *item){
+    Node *buf = item->prev;
+    if(item == list->head)
+        return;
+    if(buf != list->head){
+        buf->prev->next = item;
+    }
+    else
+        list->head = item;
+    if(item != list->tail)
+        item->next->prev = item->prev;
+    else
+        list->tail = item->prev;
+    item->prev = buf->prev;
+    buf->next = item->next;
+    item->next = buf;
+    buf->prev = item;
+}
