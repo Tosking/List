@@ -12,8 +12,8 @@ int main(){
                 << "3.Sort list" << std::endl
                 << "4.Search Item" << std::endl
                 << "5.Print List" << std::endl
-                << "6.Print sorted list by solar system" << std::endl
-                << "1.Add Item" << std::endl;
+                << "6.Clear List" << std::endl
+                << "7.Type one type items" << std::endl;
         std::cin >> var;
         switch(var){
             case 1:{
@@ -21,9 +21,8 @@ int main(){
                 int i = 0;
                 std::cout << "Enter object type (1 - star, 2 - planet):" << std::endl;
                 std::cin >> i;
-                Base *temp = new Base(type);
                 type = static_cast<TypeObject>(i);
-                temp = temp->create(type);
+                Base *temp = create(type);
                 temp->Input();
                 list.add(static_cast<Node*>(temp));
                 break;
@@ -45,7 +44,7 @@ int main(){
                 break;
             }
             case 6:{
-                list.print_solar();
+                list.clear();
                 break;
             }
             case 7:{
