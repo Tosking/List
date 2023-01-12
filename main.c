@@ -59,8 +59,9 @@ int main(){
             print_solar(list);
         case 9:
             printf("Enter object type (1 - star, 2 - planet):");
-            scanf("%s", &buff);
-            print_one(list, buff);
+            int i = 0;
+            scanf("%d", &i);
+            print_one(list, i);
         default:
             break;
         }

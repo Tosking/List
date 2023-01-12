@@ -179,12 +179,15 @@ void SubjList::sort(){
     if(this && this->Size() > 1){
         while(1){
             int i = 0;
-            for(Node *temp = this->Head(); temp != NULL; temp = temp->GetNext()){
+            for(Node *temp = this->Head(); temp != NULL;){
                 if(temp->GetNext() == NULL)
                     break;
                 if(compare_name(static_cast<Base*>(temp)->GetName(), static_cast<Base*>(temp->GetNext())->GetName()) > 0){
                     push_back(temp->GetNext());
                     i++;
+                }
+                else{
+                    temp = temp->GetNext()
                 }
             }
             if(i == 0){
@@ -250,6 +253,7 @@ void SubjList::print_one(TypeObject type)const{
                 temp->Print();
                 std::cout << std::endl;
             }
+            temp = static_cast<Base*>(temp->GetNext());
         }
     }
 }

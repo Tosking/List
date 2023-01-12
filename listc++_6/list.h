@@ -9,7 +9,7 @@ class Node{
         List* list;
     public:
         Node();
-        ~Node();
+        virtual ~Node();
         Node *GetNext() const;
         friend class List;
 };
@@ -21,18 +21,18 @@ class List{
         size_t size;
     public:
         List();
-        ~List();
+        virtual ~List();
         void add(Node* temp);
         Node* GetNode(const size_t index);
         const int GetSize()const;
         Node* GetHead()const;
-        virtual void Insert(size_t index, Node* temp);
+        void Insert(size_t index, Node* temp);
         void clear();
         const size_t Size();
         Node *remove(const size_t index);
         Node *remove_node(Node *node);
         void push_back(Node *item);
-        virtual void Print();
+        void Print();
     protected:
         Node *Head()const;
 };

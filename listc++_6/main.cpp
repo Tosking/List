@@ -21,9 +21,8 @@ int main(){
                 int i = 0;
                 std::cout << "Enter object type (1 - star, 2 - planet):" << std::endl;
                 std::cin >> i;
-                Base *temp = new Base(type);
                 type = static_cast<TypeObject>(i);
-                temp = temp->create(type);
+                Base *temp = create(type);
                 temp->Input();
                 list.add(static_cast<Node*>(temp));
                 break;

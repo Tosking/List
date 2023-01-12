@@ -192,12 +192,12 @@ Base *create(TypeObject type, List* list){
     {
         case isStar:
             base = malloc(sizeof(Star));
-            base->type = 1;
+            base->type = type;
             break;
         case isPlanet:
             base = malloc(sizeof(Planet));
             printf("%d", sizeof(double));
-            base->type = 2;
+            base->type = type;
             break;
     }
     add_item(list, (Node*) base);
@@ -255,7 +255,7 @@ Planet **sort_by_d_solar(List *list, Star *star){
     if(planets >= 2){
         for(int i = 0; i < planets; i++){
             for(int k = 0; k < (planets - 1); k++){
-                if(arr[k] > arr[k+1]){
+                if(arr[k]->orb_d > arr[k+1]->orb_d){
                     Planet *buff = arr[k];
                     arr[k] = arr[k+1];
                     arr[k+1] = buff;
@@ -296,5 +296,6 @@ void print_one(List* list, TypeObject type){
             print_item(temp, ALL);
             printf("\n");
         }
+        temp = ((Node*) temp)->next;
     }
 }
