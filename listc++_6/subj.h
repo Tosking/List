@@ -18,8 +18,8 @@ class Base :public Node{
     public:
         Base(TypeObject type);
         Base *create(TypeObject type);
-        void Print();
-        void Input();
+        virtual void Print();
+        virtual void Input();
         TypeObject GetType()const;
         std::string GetName()const;
 };
