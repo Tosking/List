@@ -21,9 +21,19 @@ class Planet :public Base{
         const int compare_orb_d(Planet *temp1, Planet *temp2)const;
     public:
         Planet();
+        std::string GetSystem()const;
+        double GetOrb_d()const;
         void Print()const;
         void Input();
 };
+
+std::string Planet::GetSystem()const{
+    return system;
+}
+
+double Planet::GetOrb_d()const{
+    return orb_d;
+}
 
 Base::Base(TypeObject type){
     this->type = type;
@@ -190,22 +200,22 @@ void SubjList::print_solar()const{
         
             int planets = 0;
             Planet **arr = (Planet**)malloc(sizeof(Planet) * this->GetSize());
-            Base *temp = (Base*) this->GetHead();
+            Base *temp = static_cast<Base*>(this->GetHead());
             Base *last_planet = NULL;
             for(int i = 0; i < this->GetSize(); i++){
                 if(temp->GetType() == TypeObject::isPlanet){
-                    if(compare_name(solar->GetName(), temp->GetName()) == 0){
+                    if(compare_name(solar->GetName(), static_cast<Planet*>(temp)->GetSystem()) == 0){
                         arr[planets] = static_cast<Planet*>(temp);
                         planets++;
                         last_planet = temp;
                     }
                 }
-                temp = static_cast<Base*>(static_cast<Base*>(temp)->GetNext());
+                temp = static_cast<Base*>(temp->GetNext());
             }
             if(planets >= 2){
                 for(int i = 0; i < planets; i++){
                     for(int k = 0; k < (planets - 1); k++){
-                        if(arr[k] > arr[k+1]){
+                        if(arr[k]->GetOrb_d() > arr[k+1]->GetOrb_d()){
                             Planet *buff = arr[k];
                             arr[k] = arr[k+1];
                             arr[k+1] = buff;
@@ -226,7 +236,7 @@ void SubjList::print_solar()const{
                     else
                         break;
                 }
-                printf("\n-------------------------------\n");
+                printf("-------------------------------\n");
                 free(arr);
         }
     }
