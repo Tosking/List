@@ -1,2 +1,2 @@
 compile:
-	g++ -g list.cpp main.cpp -o test && ./test
+	g++ -g list.cpp main.cpp subj.cpp -o test && ./test

@@ -3,11 +3,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void __clear_input(){
-    while(getchar() != EOF){
-        printf("1\n");
-    }
-}
+typedef struct Star
+{
+    struct Base base;
+    double t;
+    double size;
+    double earth_d;
+} Star;
+
+typedef struct Planet 
+{
+    struct Base base;
+    char system[50];
+    double orb_d;
+} Planet;
 
 void insert_name(Base *data){
     scanf("%s", &data->name);
@@ -217,15 +226,7 @@ void sort(List* list){
         for(Node *temp = list->head; temp != NULL; temp = temp->next){
             if(temp->next == NULL)
                 break;
-            int sum1 = 0;
-            int sum2 = 0;
-            for(int i = 0; i < 50; i++){
-                sum1 += ((Base*) temp)->name[0] + ((Base*) temp)->name[1] + ((Base*) temp)->name[3];
-            }
-            for(int i = 0; i < 50; i++){
-                sum2 += ((Base*) temp->next)->name[0] + ((Base*) temp->next)->name[1] + ((Base*) temp->next)->name[3];
-            }
-            if(sum1 > sum2){
+            if(strcmp(((Base*) temp)->name, ((Base*) temp->next)->name) > 0){
                 push_back(list, temp->next);
                 i++;
             }

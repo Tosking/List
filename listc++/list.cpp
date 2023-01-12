@@ -27,6 +27,18 @@ const size_t List::Size(){
     return size;
 }
 
+Node *List::Head()const{
+    return head;
+}
+
+const int List::GetSize()const{
+    return size;
+}
+
+Node* List::GetHead()const{
+    return head;
+}
+
 void List::clear(){
     if(this){
         Node* temp = head;
@@ -117,4 +129,23 @@ void List::Print(){
     for(int i = 0; temp; i++, temp = temp->next){
         std::cout << i << "\t" << temp << "\t" << temp->prev << "\t" << temp->next << std::endl;
     }
+}
+
+void List::push_back(Node *item){
+    Node *buf = item->prev;
+    if(item == head)
+        return;
+    if(buf != head){
+        buf->prev->next = item;
+    }
+    else
+        head = item;
+    if(item != tail)
+        item->next->prev = item->prev;
+    else
+        tail = item->prev;
+    item->prev = buf->prev;
+    buf->next = item->next;
+    item->next = buf;
+    buf->prev = item;
 }

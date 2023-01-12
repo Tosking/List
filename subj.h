@@ -17,21 +17,6 @@ typedef struct Base
     double d;
 } Base;
 
-typedef struct Star
-{
-    struct Base base;
-    double t;
-    double size;
-    double earth_d;
-} Star;
-
-typedef struct Planet 
-{
-    struct Base base;
-    char system[50];
-    double orb_d;
-} Planet;
-
 typedef enum AddChoose {
     Name,
     Mass,

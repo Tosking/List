@@ -15,21 +15,23 @@ class Base :public Node{
         double d;
     protected:
         TypeObject type;
-        Base(TypeObject type);
     public:
+        Base(TypeObject type);
         Base *create(TypeObject type);
         void Print();
-        const int Menu();
         void Input();
         TypeObject GetType()const;
+        std::string GetName()const;
 };
 
 class SubjList :public List{
     public:
         void sort();
-        void search(std::string str)const;
+        void print_solar()const;
+        Base *search(std::string str)const;
+        void delete_item(Base *temp);
         void Print()const;
     private:
-        const int compare(Base *temp1, Base *temp2);
+        const int compare_name(std::string temp1, std::string temp2)const;
         int search_element(Base *temp, std::string str);
 };

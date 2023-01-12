@@ -24,12 +24,15 @@ class List{
         ~List();
         void add(Node* temp);
         Node* GetNode(const size_t index);
+        const int GetSize()const;
+        Node* GetHead()const;
         void insert(size_t index, Node* temp);
         void clear();
         const size_t Size();
         Node *remove(const size_t index);
         Node *remove_node(Node *node);
+        void push_back(Node *item);
         void Print();
     protected:
-        Node *Head();
+        Node *Head()const;
 };
