@@ -121,7 +121,7 @@ void List::Insert(size_t index, Node *node){
 }
 
 void List::Print(){
-    std::cout << "List:" << this << "\t"
+    std::cout << size << " List:" << this << "\t"
             << "Head:" << head << "\t"
             << "Tail:" << tail << std::endl;
     

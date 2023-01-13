@@ -53,7 +53,7 @@ int main(){
                 std::cout << "Enter object type (1 - star, 2 - planet):" << std::endl;
                 std::cin >> i;
                 type = static_cast<TypeObject>(i);
-                list.print_one(type);
+                list.Print(type);
             }
             case 5:
                 list.Print();

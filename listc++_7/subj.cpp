@@ -43,8 +43,8 @@ std::string Base::GetName()const{
     return name;
 }
 
-Node& SubjList::operator[](const size_t index){
-    return *GetNode(index);
+Base& SubjList::operator[](const size_t index){
+    return *static_cast<Base*>(GetNode(index));
 }
 
 const bool Base::operator ==(const TypeObject type)const{
@@ -188,22 +188,13 @@ const bool Base::operator >(const Base &temp)const{
 
 void SubjList::sort(){
     if(this && this->Size() > 1){
-        while(1){
-            int i = 0;
-            for(Node *temp = this->Head(); temp != NULL;){
-                if(temp->GetNext() == NULL){
-                    break;
+        int n = GetSize();
+        SubjList L = *this;
+        for(int i = 0; i < n - 1; i++){
+            for(int k = i + 1; k < n; k++){
+                if(L[i] > L[k]){
+                    push_back(static_cast<Node*>(&L[k]));
                 }
-                if(*static_cast<Base*>(temp) > *static_cast<Base*>(temp->GetNext())){
-                    push_back(temp->GetNext());
-                    i++;
-                }
-                else{
-                    temp = temp->GetNext();
-                }
-            }
-            if(i == 0){
-                break;
             }
         }
     }

@@ -35,7 +35,7 @@ class SubjList :public List{
         void Print(TypeObject type)const;
     private:
         int search_element(Base *temp, std::string str);
-        Node& operator[](const size_t index);
+        Base& operator[](const size_t index);
 };
 
 Base *create(TypeObject type);
