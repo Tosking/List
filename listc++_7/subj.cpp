@@ -209,7 +209,7 @@ void SubjList::sort(){
     }
 }
 
-void SubjList::print_one(TypeObject type)const{
+void SubjList::Print(TypeObject type)const{
     if(this){
         switch (type)
         {

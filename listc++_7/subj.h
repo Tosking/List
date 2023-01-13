@@ -32,7 +32,7 @@ class SubjList :public List{
         Base *search(std::string str)const;
         void delete_item(Base *temp);
         void Print()const;
-        void print_one(TypeObject type)const;
+        void Print(TypeObject type)const;
     private:
         int search_element(Base *temp, std::string str);
         Node& operator[](const size_t index);
